@@ -1,7 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
-import { ApolloProvider } from "@apollo/client";
+import {ApolloProvider} from "@apollo/client";
 import createApolloClient from './apolloClient';
 import auth0 from './auth0';
 
@@ -59,7 +59,7 @@ async function getHeaders(ctx) {
     if (s && s.accessToken == null) return null
 
     return {
-        authorization: `Bearer ${s ? s.accessToken: ''}`
+        authorization: `Bearer ${s ? s.accessToken : ''}`
     }
 }
 
@@ -92,8 +92,8 @@ const initApolloClient = (initialState, headers) => {
  * @param  {Boolean} [withApolloOptions.ssr=false]
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
-export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
-    const WithApollo = ({ apolloClient, apolloState, ...pageProps }) => {
+export const withApollo = ({ssr = true} = {}) => (PageComponent) => {
+    const WithApollo = ({apolloClient, apolloState, ...pageProps}) => {
         let client;
         if (apolloClient) {
             // Happens on: getDataFromTree & next.js ssr
@@ -119,7 +119,7 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
     }
     if (ssr || PageComponent.getInitialProps) {
         WithApollo.getInitialProps = async (ctx) => {
-            const { AppTree } = ctx
+            const {AppTree} = ctx
 
             // Initialize ApolloClient, add it to the ctx object so
             // we can use it in `PageComponent.getInitialProp`.
@@ -143,7 +143,7 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
                 if (ssr) {
                     try {
                         // Run all GraphQL queries
-                        const { getDataFromTree } = await import('@apollo/client/react/ssr')
+                        const {getDataFromTree} = await import('@apollo/client/react/ssr')
                         await getDataFromTree(
                             <AppTree
                                 pageProps={{
@@ -158,10 +158,6 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
                         // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
                         console.error('Error while running `getDataFromTree`', error)
                     }
-
-                    // getDataFromTree does not call componentWillUnmount
-                    // head side effect therefore need to be cleared manually
-                    // Head.rewind()
                 }
             }
 

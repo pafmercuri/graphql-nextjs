@@ -1,10 +1,10 @@
 import fetch from 'isomorphic-unfetch'
 
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { onError } from "@apollo/client/link/error";
-import { WebSocketLink } from "@apollo/client/link/ws";
-import { SubscriptionClient } from 'subscriptions-transport-ws'
+import {ApolloClient, InMemoryCache, HttpLink} from "@apollo/client";
+import {setContext} from "@apollo/client/link/context";
+import {onError} from "@apollo/client/link/error";
+import {WebSocketLink} from "@apollo/client/link/ws";
+import {SubscriptionClient} from 'subscriptions-transport-ws'
 
 import auth0 from './auth0';
 
@@ -23,7 +23,7 @@ const requestAccessToken = async () => {
 }
 
 // remove cached token on 401 from the server
-const resetTokenLink = onError(({ networkError }) => {
+const resetTokenLink = onError(({networkError}) => {
     if (networkError && networkError.name === 'ServerError' && networkError.statusCode === 401) {
         accessToken = null
     }

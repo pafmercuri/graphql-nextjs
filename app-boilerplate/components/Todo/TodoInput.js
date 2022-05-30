@@ -47,7 +47,7 @@ const TodoInput = ({isPublic = false}) => {
             className="formInput"
             onSubmit={e => {
                 e.preventDefault();
-                addTodo({variables: {todo: todoInput, isPublic }});
+                addTodo({variables: {todo: todoInput, isPublic}});
             }}>
             <input className="input"
                    placeholder="What needs to be done?"
